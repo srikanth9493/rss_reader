@@ -34,31 +34,27 @@ def  Feed_View(request,**args):
         url=request.POST.get('url')
         data={}
         feed = feedparser.parse(url)
-        print(args)
         post=[]
-        for i in range(len(feed)):
-            # published = date(pub_date[0], pub_date[1], pub_date[2])
+        if(len(feed['entries'])!=0):
+            for i in range(len(feed)):
+                # published = date(pub_date[0], pub_date[1], pub_date[2])
+                x=feed['entries'][i]
+                # print(x)
+                data={
+                    'title': feed['entries'][i].title,
+                    'summary': feed['entries'][i].summary,
+                    'link': feed['entries'][i].link,
+                    # 'content': feed['entries'][i].content,
+                    # 'date': published
+                }
+                try:
+                    data['image']= x['media_thumbnail'][0]['url']
+                except Exception:
+                    pass
+                post.append(
+                        data
+                )
+            data["feed"]=post
+            return render(request,"reader/feeds.html",data)
 
-            x=feed['entries'][i]
-            # print(x)
-            data={
-                'title': feed['entries'][i].title,
-                'summary': feed['entries'][i].summary,
-                'link': feed['entries'][i].link,
-                # 'content': feed['entries'][i].content,
-                # 'date': published
-            }
-            try:
-                data['image']= x['media_thumbnail'][0]['url']
-            except Exception:
-                pass
-
-
-            post.append(
-                    data
-            )
-
-
-        data["feed"]=post
-        return render(request,"reader/feeds.html",data)
-
+        return  render(request,"error.html")

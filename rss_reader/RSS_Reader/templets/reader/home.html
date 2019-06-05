@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="col-sm-6 offset-sm-3"   style="margin-top:150px">
+<form class="form" method="post" action="{% url 'rss:feed' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+</div>
+
+{% endblock %}
+

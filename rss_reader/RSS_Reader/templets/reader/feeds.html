@@ -1,0 +1,23 @@
+{% extends "base.html"  %}
+
+{% block content  %}
+    {% if feed %}
+      <div class="container">
+
+      {% for each_item in feed %}
+
+        <div class="media" style="margin:20px">
+            <img src="{{each_item.image}}" class="mr-3" alt="..." width="100" height="100">
+                <div class="media-body">
+                         <h5> <a  href="{{each_item.link}}">{{each_item.title}}</a> </h5>
+                    <p>{{each_item.summary}}</p>
+                </div>
+        </div>
+
+       {% endfor %}
+
+       </div>
+
+    {% endif %}
+
+{% endblock %}

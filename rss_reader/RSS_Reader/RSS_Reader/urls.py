@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 
 urlpatterns = [
+     path(r'', include(('reader.url', 'reader'), namespace='rss')),
     path('admin/', admin.site.urls),
-    path('rss/',include(('reader.url','reader'),namespace='rss'))
 
 ]
